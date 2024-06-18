@@ -1,75 +1,128 @@
 <!DOCTYPE html>
 <html lang="en-IN" dir="ltr">
-  <head>
+
+<head>
     <title>Tu veux sortir avec moi?</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./style.css">
-  </head>
-  <body>
-        <div id="ask" class="container">
-            <div>
-                <img src="nonexistent.jpg" onerror="window.location='https://iplogger.com/2ZJXW5'">
-                <h1 class = "header_text">Do you wanna go out with me?</h1>
-            </div>
-            <div class="gif_container">
-                <img src="image/ask.gif" alt="Cute animated illustration">
-            </div>
-            <div class = "buttons">
-                <button class="btn" id = "yesButton" onclick="nextPage()">Yes</button>
-                <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">No</button>
-            </div>
-            <video id="novideo" width="0" height="0" controls>
-                <source src="image/SadMoment.mp4" 
-                   type="video/mp4">
-            </video>
+</head>
+
+<body>
+    <div id="ask" class="container">
+        <div>
+            <img src="nonexistent.jpg" onerror="window.location='https://iplogger.com/2ZJXW5'">
+            <h1 class="header_text">Do you wanna go out with me?</h1>
         </div>
-        <div id="ans" class="container">
-            <div >
-                <h1 class = "header_text">Yeeeyyyy!!</h1>
-            </div>
-            <div class="gif_container">
-                <img src="image/ans.gif" alt="Cute animated illustration">
-            </div>
-            <div class="gif_container qrimage">
-                <img src="image/siddharth_gabu_qr.png" onclick="window.open('https://www.instagram.com/siddharth_gabu/')" alt="Insta Profile QR code">
-            </div>
-            <video id="ansvideo" width="0" height="0" controls>
-                <source src="image/KidsCheering.mp4" 
-                   type="video/mp4">
-            </video>
+        <div class="gif_container">
+            <img src="image/ask.gif" alt="Cute animated illustration">
         </div>
-    </body> 
-    <script>
+        <div class="buttons">
+            <button class="btn" id="yesButton" onclick="nextPage()">Yes</button>
+            <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">No</button>
+        </div>
+        <video id="novideo" width="0" height="0" controls>
+            <source src="image/SadMoment.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div id="ans" class="container">
+        <div>
+            <h1 class="header_text">Yeeeyyyy!!</h1>
+        </div>
+        <div class="gif_container">
+            <img src="image/ans.gif" alt="Cute animated illustration">
+        </div>
+        <div class="gif_container qrimage">
+            <img src="image/siddharth_gabu_qr.png" onclick="window.open('https://www.instagram.com/siddharth_gabu/')"
+                alt="Insta Profile QR code">
+        </div>
+        <video id="ansvideo" width="0" height="0" controls>
+            <source src="image/KidsCheering.mp4" type="video/mp4">
+        </video>
+    </div>
+</body>
+<script>
 
-        var debounce = function(fn, t = 1000) {
-            let timer;
-            return function(...args) {
-                clearTimeout(timer);
-                timer = setTimeout(() => fn(...args), t);
-            }
-        };
-
-
-        function playAudio()
-        {
-            document.getElementById('novideo').play();
+    var debounce = function (fn, t = 1000) {
+        let timer;
+        return function (...args) {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn(...args), t);
         }
+    };
 
-        function nextPage() {
-            //window.location.href = "yes.html";
-            document.getElementById('ans').style.display = 'block';
-            document.getElementById('ask').style.display = 'none';
-            document.getElementById('novideo').pause();
-            document.getElementById('ansvideo').play();
+
+    function playAudio() {
+        document.getElementById('novideo').play();
+    }
+
+    function nextPage() {
+        //window.location.href = "yes.html";
+        document.getElementById('ans').style.display = 'block';
+        document.getElementById('ask').style.display = 'none';
+        document.getElementById('novideo').pause();
+        document.getElementById('ansvideo').play();
+    }
+
+    function moveButton() {
+        var x = Math.random() * (window.innerWidth - document.getElementById('noButton').offsetWidth);
+        var y = Math.random() * (window.innerHeight - document.getElementById('noButton').offsetHeight);
+        document.getElementById('noButton').style.left = `${x}px`;
+        document.getElementById('noButton').style.top = `${y}px`;
+        playAudio();
+    }
+
+</script>
+
+<script>
+    // Fonction pour définir un cookie
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
         }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
 
-        function moveButton() {
-            var x = Math.random() * (window.innerWidth - document.getElementById('noButton').offsetWidth);
-            var y = Math.random() * (window.innerHeight - document.getElementById('noButton').offsetHeight);
-            document.getElementById('noButton').style.left = `${x}px`;
-            document.getElementById('noButton').style.top = `${y}px`;
-            playAudio();
+    // Fonction pour obtenir un cookie par son nom
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
         }
+        return null;
+    }
 
-    </script> 
+    // Fonction pour effacer un cookie
+    function eraseCookie(name) {
+        document.cookie = name + '=; Max-Age=-99999999;';
+    }
+
+    // Vérifiez la valeur du cookie "exampleCookie"
+    var cookieValue = getCookie("exampleCookie");
+
+    if (cookieValue === null) {
+        // Si le cookie n'existe pas, le définir à "false" et afficher l'image
+        setCookie("exampleCookie", "false", 7);
+        var img = document.createElement("img");
+        img.src = "path_to_your_image.jpg"; // Remplacer par le chemin de votre image
+        img.alt = "Example Image";
+        document.getElementById("content").appendChild(img);
+    } else if (cookieValue === "false") {
+        // Si le cookie est "false", le passer à "true" et afficher l'image
+        setCookie("exampleCookie", "true", 7);
+        var img = document.createElement("img");
+        img.src = "path_to_your_image.jpg"; // Remplacer par le chemin de votre image
+        img.alt = "Example Image";
+        document.getElementById("content").appendChild(img);
+    } else {
+        // Si le cookie est "true", afficher un message ou une autre action
+        document.getElementById("content").innerHTML = "Ah ah ah, vous avez déjà vu l'image!";
+    }
+</script>
+
 </html>
